@@ -1,0 +1,21 @@
+<!-- <div class="card" style="width: 18rem;">
+    <img src={{product.image}} class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{product.name}}</h5>
+        <p class="card-text">{{product.desc}}</p>
+        <span class="card-title">{{product.price}}</span>
+
+
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div> -->
+
+<p>Custom rating template provided as child element</p>
+
+<ngb-rating [(rate)]="currentRate">
+  <ng-template let-fill="fill" let-index="index">
+    <span class="bi-star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+  </ng-template>
+</ngb-rating>
+<hr>
+<pre>Rate: <b>{{currentRate}}</b></pre>
