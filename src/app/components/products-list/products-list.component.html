@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-2"></div>
+    <ngb-alert class="text-center col" #selfClosingAlert *ngIf="orderSucceededMessage" type="success"
+        (closed)="orderSucceededMessage = ''">
+        {{ orderSucceededMessage }}
+    </ngb-alert>
+    <div class="col-2"></div>
+</div>
+<br *ngIf="orderSucceededMessage">
+
+<div class="row fs-6">
+    <div class="col-10 d-flex align-items-center">
+        <div class="me-3">
+            Sort by:
+        </div>
+        <button class="unselectedButton me-1" [class.selectedButton]="classes.category"
+            (click)="handleSort(SortEnum.CATEGORY)">Category</button>
+        <button class="unselectedButton me-1" [class.selectedButton]="classes.priceLowToHigh"
+            (click)="handleSort(SortEnum.PRICELowToHigh)">Price (Low to high)</button>
+        <button class="unselectedButton me-1" [class.selectedButton]="classes.priceHighToLow"
+            (click)="handleSort(SortEnum.PRICEHighToLow)">Price (High to low)</button>
+        <button class="unselectedButton me-1" [class.selectedButton]="classes.name"
+            (click)="handleSort(SortEnum.NAME)">Name</button>
+    </div>
+    <div class="col-2 d-flex align-items-center">
+        <div class="me-3">
+            Show:
+        </div>
+
+        <select class="form-select" (change)="onSizeChange($event)">
+            <option>6</option>
+            <option selected>12</option>
+            <option>18</option>
+            <option>24</option>
+        </select>
+    </div>
+</div>
+
+<br>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col" *ngFor="let product of products | paginate: { 
+                                                         itemsPerPage: cardsPerPage,
+                                                        currentPage: page}">
+        <app-product-card [product]="product" (addToCart)="addToCart($event)"></app-product-card>
+    </div>
+</div>
+
+<br><br>
+<div class="d-flex justify-content-center fs-6">
+    <pagination-controls (pageChange)="onDataChange($event)" [responsive]="false" previousLabel="" nextLabel=""
+        screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+</div>
+<br><br><br>

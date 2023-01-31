@@ -1,0 +1,149 @@
+<div class="row fs-6">
+    <div class="col-3"></div>
+    <div class="col-7">
+        <form #registerForm="ngForm" (ngSubmit)="register(registerForm.value)">
+            <h2 class="text-decoration-underline">Please enter your address:</h2>
+            <br>
+
+            <div class="row">
+                <div class="mb-3 row col-5">
+                    <label for="inputRegion" class="col-sm-4 col-form-label">
+                        <span class="myErr">*</span>
+                        Region:
+                    </label>
+                    <div class="col-sm-8 mb-3">
+                        <select class="form-select" ngModel #region="ngModel" id="inputRegion"
+                            aria-describedby="regionHelp" name="region" required>
+                            <option *ngFor="let r of regions;" [ngValue]="r">{{r.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row col">
+                    <label for="inputCity" class="col-sm-2 col-form-label">
+                        <span class="myErr">*</span>
+                        City:
+                    </label>
+                    <div class="col-sm-10 mb-3">
+                        <input ngModel #city="ngModel" name="city" type="text" class="form-control" id="inputCity"
+                            aria-describedby="cityHelp" minlength="2" required pattern="^^[A-Z][a-zA-Z ]*[a-zA-Z]$">
+                    </div>
+
+                    <div class="myErr mt-2 mb-2" *ngIf="city.touched && city.invalid" id="cityHelp">
+                        City field is required, must contain at least 2 letters, can contain english letters only and
+                        must start with a capital letter
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 row col-8">
+                    <label for="inputStreet" class="col-sm-3 col-form-label">
+                        <span class="myErr">*</span>
+                        Street:
+                    </label>
+                    <div class="col-sm-8 mb-3">
+                        <input ngModel #street="ngModel" name="street" type="text" class="form-control" id="inputStreet"
+                            aria-describedby="streetHelp" minlength="2" required pattern="^^[A-Z][a-zA-Z ]*[a-zA-Z]$">
+                    </div>
+
+                    <div class="myErr mt-2 mb-2" *ngIf="street.touched && street.invalid" id="streetHelp">
+                        Street field is required, must contain at least 2 letters, can contain english letters only and
+                        must start with a capital letter
+                    </div>
+                </div>
+
+                <div class="mb-3 row col">
+                    <label for="inputStreetNo" class="col-sm-5 col-form-label">
+                        <span class="myErr">*</span>
+                        Number:
+                    </label>
+                    <div class="col-sm-7 mb-3">
+                        <input ngModel #streetNo="ngModel" name="streetNo" type="number" class="form-control" min="1"
+                            max="999" id="inputStreetNo" aria-describedby="streetNoHelp" required>
+                    </div>
+
+                    <div class="myErr mt-2 mb-2" *ngIf="streetNo.touched && streetNo.invalid" id="streetNoHelp">
+                        Street number must be an integer between 1-999
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 row col">
+                    <label for="inputEntrance" class="col-sm-5 col-form-label">Entrance:</label>
+                    <div class="col-sm-7 mb-3">
+                        <input ngModel #entrance="ngModel" name="entrance" type="text" class="form-control"
+                            id="inputEntrance" aria-describedby="entranceHelp" pattern="[A-Z]{1}">
+                    </div>
+
+                    <div class="myErr mt-2 mb-2" *ngIf="entrance.touched && entrance.invalid" id="entranceHelp">
+                        Entrance must be 1 capitol english letter
+                    </div>
+                </div>
+
+                <div class="mb-3 row col-5">
+                    <label for="inputApartmentNumber" class="col-sm-8 col-form-label">Apartment Number:</label>
+                    <div class="col-sm-4 mb-3">
+                        <input ngModel #apartmentNumber="ngModel" name="apartmentNumber" type="number"
+                            class="form-control" id="inputApartmentNumber" aria-describedby="apartmentNumberHelp"
+                            min="1" max="999">
+                    </div>
+
+                    <div class="myErr mt-2 mb-2" *ngIf="apartmentNumber.touched && apartmentNumber.invalid"
+                        id="apartmentNumberHelp">
+                        Apartment number must be an integer between 1-999
+                    </div>
+                </div>
+
+                <div class="mb-3 row col">
+                    <label for="inputPostal" class="col-sm-4 col-form-label">Postal:</label>
+                    <div class="col-sm-8 mb-3">
+                        <input ngModel #postal="ngModel" name="postal" type="text" class="form-control" id="inputPostal"
+                            aria-describedby="postalHelp">
+                    </div>
+
+                    <div class="myErr mt-2 mb-2" *ngIf="!postalValid" id="postalHelp">
+                        Postal must be a 5-digit or a 7-digit integer
+                    </div>
+                </div>
+            </div>
+            <br>
+            <h2 class="text-decoration-underline">And your payment details:</h2>
+            <br>
+
+            <div class="mb-3 row">
+                <label for="inputPaymentMethod" class="col-sm-3 col-form-label">
+                    <span class="myErr">*</span> Payment method:
+                </label>
+                <div class="col-sm-9 mb-3">
+                    <select class="form-select" ngModel #paymentMethod="ngModel" id="inputPaymentMethod"
+                        aria-describedby="paymentMethodHelp" name="paymentMethod" required>
+                        <option *ngFor="let p of paymentMethods;" [ngValue]="p">{{p}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputPaymentDetails" class="col-sm-3 col-form-label">
+                    <span class="myErr">*</span> Payment details:
+                </label>
+                <div class="col-sm-9 mb-3">
+                    <input ngModel #paymentDetails="ngModel" name="paymentDetails" type="text" class="form-control"
+                        id="inputPaymentDetails" aria-describedby="paymentDetailsHelp" required>
+                </div>
+
+                <div class="myErr mt-2 mb-2" *ngIf="paymentDetails.touched && paymentDetails.invalid"
+                    id="paymentDetailsHelp">
+                    Please insert payment details
+                </div>
+            </div>
+
+            <br>
+            <h4><span class="myErr">*</span> required fields</h4>
+            <div class="d-flex justify-content-center">
+                <button [disabled]="!registerForm.valid" class="btn btn-primary">&nbsp;Finish registeration&nbsp;</button>
+            </div>
+        </form>
+    </div>
+</div>

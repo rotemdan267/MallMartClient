@@ -1,0 +1,29 @@
+<div class="row">
+
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option class="b" *ngFor="let result of searchResults" [value]="result">
+            {{result}}
+        </mat-option>
+    </mat-autocomplete>
+
+    <div class="col-5">
+        <div class="input-group">
+            <div class="form-floating form-outline">
+                <input type="text" placeholder="Search products" aria-label="Search" class="form-control"
+                    id="searchInput" matInput [matAutocomplete]="auto" #searchText
+                    (keyup.enter)="Search(searchText.value)" (keyup)="handleKeyUp(searchText.value)">
+                <label for="searchInput">Search products</label>
+            </div>
+        </div>
+    </div>
+    <div class="col d-flex align-items-stretch">
+        <button type="button" class="btn btn-primary" (click)="Search(searchText.value)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1.75rem" height="1.75rem" fill="currentColor"
+                class="bi bi-search" viewBox="0 0 16 16">
+                <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg>
+        </button>
+    </div>
+
+</div>

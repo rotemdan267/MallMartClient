@@ -1,0 +1,21 @@
+.row {
+    background-color: #0d6efd;
+}
+
+.btn-rounded {
+    border-radius: 50px;
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.user-greeting {
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.link:hover {
+    text-decoration: underline;
+}

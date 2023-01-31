@@ -1,36 +1,92 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { Category } from 'src/app/interfaces/Category';
+import { Order } from 'src/app/interfaces/Order';
+import { OrderLine } from 'src/app/interfaces/OrderLine';
 import { Product } from 'src/app/interfaces/Product';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.css']
 })
-export class ProductCardComponent implements OnInit {
+export class ProductCardComponent implements OnInit, OnChanges {
 
-  category: Category = {
-    id: 1,
-    name: "men's clothing"
-  };
+  tooltipMessage = 'Add to cart';
+  category: Category = {} as Category;
+  @Input() product: Product = {} as Product;
+  @Output() addToCart = new EventEmitter<OrderLine>();
+  productRating: number = 0;
+  isLoggedIn = false;
+  authorization: string = '';
 
-  product: Product = {
-    id: 1,
-    name: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-    category: this.category,
-    price: 109.95,
-    unitsInStock: 100,
-    desc: "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-    image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-    rating: 3.9,
-    numOfRaters: 120
+  constructor(private router: Router, private dataService: DataService) {
+    this.dataService.isLoggedIn.subscribe(res => {
+      this.isLoggedIn = res.isLoggedIn;
+      this.authorization = res.authorization;
+    });
   }
 
-  currentRate: number = 6;
+  ngOnInit(): void { }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges) {
+    this.productRating = this.product.rating;
   }
 
+  addProductToCart() {
+
+    if (!this.isLoggedIn) {
+      this.router.navigate(['login'], { queryParams: { 'ynli': true } }); // ynli = you not loggen in
+      return;
+    }
+    else if (!(this.authorization == "Customer")) {
+      alert("Log in as a customer to shop");
+      return;
+    }
+
+    let line: OrderLine = {} as OrderLine;
+    line.product = this.product;
+    line.unitPrice = this.product.unitPrice;
+    line.quantity = 1;
+    
+    this.addToCart.emit(line);
+    this.tooltipMessage = 'Item added successfully!'
+  }
+
+  onBuy() {
+
+    if (!this.isLoggedIn) {
+      this.router.navigate(['login'], { queryParams: { 'ynli': true } }); // ynli = you not loggen in
+      return;
+    }
+    else if (!(this.authorization == "Customer")) {
+      alert("Log in as a customer to shop");
+      return;
+    }
+
+    this.addProductToCart();
+    this.router.navigate(['cart']);
+  }
+
+  getImage() {
+    let path = '../../../assets/images/';
+
+    if (this.product.id > 20) {
+      path += 'Placeholder.png';
+    }
+    else {
+      path += this.product.id.toString() + '.jpg';
+    }
+
+    return path;
+  }
+
+  onRateChange(event: any) {
+
+    let newAvg = (this.product.rating * this.product.numOfRaters) + event;
+    this.product.numOfRaters++;
+    this.product.rating = newAvg / this.product.numOfRaters;
+    this.productRating = this.product.rating;
+  }
 }

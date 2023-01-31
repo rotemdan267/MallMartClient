@@ -1,0 +1,128 @@
+<button class="btn btn-outline-primary back ms-5" (click)="back()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor"
+        class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+    </svg>
+</button>
+
+
+<div class="row fs-6">
+    <div class="col-2"></div>
+    <div class="col">
+        <div class="mb-4 row">
+            <div class="col-4 row">
+                <p class="col-4 title">Ordered at:</p>
+                <p class="col">{{order.dateOrdered | date:'dd/MM/yyyy, H:mm'}}</p>
+            </div>
+            <div class="col row">
+                <p class="col-4 title">Scheduled to arrive at:</p>
+                <p class="col">{{order.dueTimeFirst | date:'dd/MM/yyyy, H:mm'}} - {{order.dueTimeLast |
+                    date:'dd/MM/yyyy, H:mm'}}</p>
+            </div>
+        </div>
+        <div class="mb-4 row">
+            <div class="col row">
+                <p class="col title">Arrived?</p>
+                <p class="col">
+                    <span *ngIf="order.arrivalTime then ifBlock else elseBlock"></span>
+
+                    <ng-template #ifBlock>
+                        <span>
+                            ✔️
+                        </span>
+                    </ng-template>
+
+                    <ng-template #elseBlock>
+                        <span>
+                            ❌
+                        </span>
+                    </ng-template>
+                </p>
+            </div>
+            <div class="col row">
+                <p class="col title">Arrived at:</p>
+                <p class="col">{{order.arrivalTime | date:'dd/MM/yyyy, H:mm'}}</p>
+            </div>
+            <div class="col row">
+                <p class="col title">Employee:</p>
+                <p class="col">{{order.employee?.user?.firstName}} {{order.employee?.user?.lastName}}</p>
+            </div>
+        </div>
+        <div class="mb-4 row">
+            <div class="col row">
+                <p class="col title">Price:</p>
+                <p class="col">{{order.totalPrice | currency:'USD':'$':'1.0-2'}}</p>
+            </div>
+            <div class="col row">
+                <p class="col title">Paid:</p>
+                <p class="col">{{order.pricePaid | currency:'USD':'$':'1.0-2'}}</p>
+            </div>
+            <div class="col row">
+                <p class="col title">Done?</p>
+                <p class="col">
+                    <span *ngIf="order.isOrderDone then ifBlock else elseBlock"></span>
+
+                    <ng-template #ifBlock>
+                        <span>
+                            ✔️
+                        </span>
+                    </ng-template>
+
+                    <ng-template #elseBlock>
+                        <span>
+                            ❌
+                        </span>
+                    </ng-template>
+                </p>
+            </div>
+        </div>
+        <div class="mb-5 row">
+            <div class="col row">
+                <p class="col-2 title">Comments:</p>
+                <p class="col">{{order.comment}}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<table class="table align-middle border m-0 fs-6">
+    <thead class="table-light">
+        <tr class="text-center">
+            <th></th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+
+    <tbody class="text-center">
+
+        <tr *ngFor="let line of order.orderLines">
+            <td>
+                <img src={{line.product.imageLink}} alt={{line.product.name}} class="image">
+            </td>
+            <td>
+                <p>{{line.product.name}}</p>
+            </td>
+            <td>
+                <p>{{line.product.category.name}}</p>
+            </td>
+            <td>
+                <p>{{line.unitPrice | currency:'USD':'$':'1.0-2'}}</p>
+            </td>
+            <td>
+                <p>{{line.quantity}}</p>
+            </td>
+            <td>
+                <p>{{line.unitPrice * line.quantity | currency:'USD':'$':'1.0-2'}}</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br><br><br>
+<br><br><br>

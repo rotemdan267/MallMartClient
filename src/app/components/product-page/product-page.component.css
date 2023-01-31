@@ -1,0 +1,72 @@
+img {
+    height: 20rem;
+}
+
+.body {
+    width: 80rem;
+}
+
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 3rem;
+    color: #d3d3d3;
+}
+
+.full {
+    color: gold;
+}
+
+.half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: gold;
+}
+
+.fontSize {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.btn {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.form-control {
+    background-color: white;
+    text-align: center;
+}
+
+.back {
+    color: #0d6efd;
+    border-radius: 50px;
+    border-color: white;
+}
+
+.back:hover {
+    background-color: aliceblue;
+}
+
+
+.quantity {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-end-start-radius: 0px;
+    border-end-end-radius: 0px;
+}
+
+.plus {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 5px;
+    border-end-start-radius: 0px;
+    border-end-end-radius: 5px;
+}
+
+.minus {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 0px;
+    border-end-start-radius: 5px;
+    border-end-end-radius: 0px;
+}

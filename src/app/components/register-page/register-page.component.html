@@ -1,0 +1,120 @@
+<button class="btn btn-outline-primary back ms-5" (click)="back()" placement="bottom" ngbTooltip="Back to Homepage">
+    <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor"
+        class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+    </svg>
+</button>
+
+
+<div class="row fs-6">
+    <div class="col-3"></div>
+    <div class="col-7">
+        <form #registerForm="ngForm" (ngSubmit)="register(registerForm.value)">
+
+            <div class="mb-3 row">
+                <label for="inputUsername" class="col-sm-2 col-form-label">Username:</label>
+                <div class="col-sm-10 mb-3">
+                    <input ngModel #username="ngModel" aria-describedby="usernameHelp" name="username" type="text"
+                        class="form-control" minlength="2" required id="inputUsername">
+
+                    <div class="myErr mt-3" *ngIf="username.touched && username.invalid" id="usernameHelp">
+                        Username field is required and must contain at least 2 characters
+                    </div>
+                    <div class="myErr mt-3" *ngIf="username.touched && !usernameValid" id="usernameHelp2">
+                        Username can contain english letters and numbers only and must start with an english letter
+                    </div>
+                    <div class="myErr mt-3" *ngIf="username.touched && !usernameAvailable" id="usernameHelp3">
+                        This username already exists in our system. Please pick another one
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 row col">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
+                <div class="col-sm-10 mb-3">
+                    <input ngModel #password="ngModel" name="password" type="password" class="form-control"
+                        id="inputPassword" aria-describedby="passwordHelp" minlength="6" required>
+
+                    <div class="myErr mt-3" *ngIf="password.touched && password.invalid" id="passwordHelp">
+                        Password field is required and must contain at least 6 characters
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 row col">
+                <label for="inputConfirmPassword" class="col-sm-3 col-form-label">Confirm Password:</label>
+                <div class="col-sm-9 mb-3">
+                    <input ngModel #passwordConfirm="ngModel" name="passwordConfirm" type="password"
+                        class="form-control" id="inputConfirmPassword" aria-describedby="confirmPasswordHelp">
+
+                    <div class="myErr mt-3" *ngIf="password.touched && !passwordConfirmed" id="confirmPasswordHelp">
+                        Passwords don't match
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 row col">
+                    <label for="inputFirstName" class="col-sm-4 col-form-label">First Name:</label>
+                    <div class="col-sm-8 mb-3">
+                        <input ngModel #firstName="ngModel" name="firstName" type="text" class="form-control"
+                            id="inputFirstName" aria-describedby="firstNameHelp" minlength="2" required>
+                    </div>
+
+                    <div class="myErr mt-2 mb-2" *ngIf="firstName.touched && firstName.invalid" id="firstNameHelp">
+                        First Name field is required and must contain at least 2 letters
+                    </div>
+                    <div class="myErr mt-2 mb-2" *ngIf="firstName.touched && !firstNameValid" id="firstNameHelp2">
+                        First name can contain english letters only and must start with a capital letter
+                    </div>
+                </div>
+
+                <div class="mb-3 row col">
+                    <label for="inputLastName" class="col-sm-4 col-form-label">Last Name:</label>
+                    <div class="col-sm-8 mb-3">
+                        <input ngModel #lastName="ngModel" name="lastName" type="text" class="form-control"
+                            id="inputLastName" aria-describedby="lastNameHelp" minlength="2" required>
+                    </div>
+
+                    <div class="myErr mt-2 mb-2" *ngIf="lastName.touched && lastName.invalid" id="lastNameHelp">
+                        Last Name field is required and must contain at least 2 letters
+                    </div>
+                    <div class="myErr mt-2 mb-2" *ngIf="lastName.touched && !lastNameValid" id="lastNameHelp2">
+                        Last name can contain english letters only and must start with a capital letter
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 row col">
+                    <label for="inputEmail" class="col-sm-3 col-form-label">Email:</label>
+                    <div class="col-sm-9 mb-3">
+                        <input ngModel #email="ngModel" name="email" type="email" class="form-control" id="inputEmail"
+                            aria-describedby="emailHelp" required email>
+
+                        <div class="myErr mt-3" *ngIf="email.touched && email.invalid" id="emailHelp">
+                            Invalid email address
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 row col">
+                    <label for="inputPhone" class="col-sm-3 col-form-label">Phone:</label>
+                    <div class="col-sm-9 mb-3">
+                        <input ngModel #phone="ngModel" name="phone" type="text" class="form-control" id="inputPhone"
+                            aria-describedby="phoneHelp" required pattern="^[0]{1}[0-9]{8,9}">
+
+                        <div class="myErr mt-3" *ngIf="phone.touched && phone.invalid" id="phoneHelp">
+                            Invalid israeli phone number
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button [disabled]="!registerForm.valid" class="btn btn-primary">&nbsp;Register&nbsp;</button>
+            </div>
+        </form>
+    </div>
+</div>

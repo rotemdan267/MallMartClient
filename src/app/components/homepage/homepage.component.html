@@ -1,0 +1,66 @@
+<div class="text-center fs-6">
+    <h1 class="mt-4">
+        Welcome to MallMart! Your best shopping experience!
+    </h1>
+    <h3 class="mt-4">New here? We're exicted to welcome you! - <a href="" routerLink="/register">Register</a></h3>
+    <h3 class="mt-4">Already a member? - <a href="" routerLink="/login">Log in</a> and start shopping</h3>
+
+    <ngb-carousel class="carousel-dark mt-5">
+        <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+                <div class="row">
+                    <!-- <div class="col" *ngFor="let index of [0,1,2]">
+                        <app-product-card [product]="products[getRndInteger(0,products.length)]"></app-product-card>
+                    </div> -->
+                    <div class="col">
+                        <app-product-card [product]="products[4]" (addToCart)="addToCart($event)"></app-product-card>
+                    </div>
+                    <div class="col">
+                        <app-product-card [product]="products[1]" (addToCart)="addToCart($event)"></app-product-card>
+                    </div>
+                    <div class="col">
+                        <app-product-card [product]="products[10]" (addToCart)="addToCart($event)"></app-product-card>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+                <div class="row">
+                    <!-- <div class="col" *ngFor="let index of [0,1,2]">
+                        <app-product-card [product]="products[getRndInteger(0,products.length)]"></app-product-card>
+                    </div> -->
+                    <div class="col">
+                        <app-product-card [product]="products[5]" (addToCart)="addToCart($event)"></app-product-card>
+                    </div>
+                    <div class="col">
+                        <app-product-card [product]="products[13]" (addToCart)="addToCart($event)"></app-product-card>
+                    </div>
+                    <div class="col">
+                        <app-product-card [product]="products[16]" (addToCart)="addToCart($event)"></app-product-card>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+                <div class="row">
+                    <!-- <div class="col" *ngFor="let index of [0,1,2]">
+                        <app-product-card [product]="products[getRndInteger(0,products.length)]"></app-product-card>
+                    </div> -->
+                    <div class="col">
+                        <app-product-card [product]="products[19]" (addToCart)="addToCart($event)"></app-product-card>
+                    </div>
+                    <div class="col">
+                        <app-product-card [product]="products[6]" (addToCart)="addToCart($event)"></app-product-card>
+                    </div>
+                    <div class="col">
+                        <app-product-card [product]="products[8]" (addToCart)="addToCart($event)"></app-product-card>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </ngb-carousel>
+</div>
+
+<!-- <br><br><br><br><br><br> -->

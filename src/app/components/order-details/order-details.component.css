@@ -1,0 +1,17 @@
+.image{
+    width: 8rem;
+}
+
+.back {
+    color: #0d6efd;
+    border-radius: 50px;
+    border-color: white;
+}
+
+.back:hover {
+    background-color: aliceblue;
+}
+
+.title {
+    color: gray;
+}

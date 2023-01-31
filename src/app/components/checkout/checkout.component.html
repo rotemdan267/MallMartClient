@@ -1,0 +1,46 @@
+
+    <button class="btn btn-outline-primary back ms-5" (click)="back()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor"
+            class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+        </svg>
+    </button>
+    <br><br>
+    <form #checkoutForm="ngForm" (ngSubmit)="finishOrder(checkoutForm.value)">
+        <div class="row fs-6">
+            <p class="text-center">When do you want your order to arrive?</p>
+            <br><br><br>
+            <div class="col-3"></div>
+            <div class="col">
+                <ngb-datepicker ngModel #datepicker="ngModel" required [minDate]="minDate" [maxDate]="maxDate"
+                    (navigate)="date = $event.next" name="datepicker" [markDisabled]="isDisabled">
+                </ngb-datepicker>
+            </div>
+            <div class="col">
+                <select ngModel #hourpicker="ngModel" required class="form-select" name="hourpicker">
+                    <option value="8 ">08:00-12:00</option>
+                    <option value="12">12:00-16:00</option>
+                    <option value="16">16:00-20:00</option>
+                </select>
+            </div>
+            <div class="col-3"></div>
+        </div>
+        <br><br>
+        <div class="mb-3 row">
+            <div class="col-2"></div>
+            <div class="col row">
+                <label for="inputComments" class="col-sm-3 col-form-label">Any special comments?</label>
+                <div class="col-sm-9 mb-3">
+                    <textarea ngModel #comments="ngModel" aria-describedby="commentsHelp" name="comments" type="text"
+                        class="form-control" id="inputComments"></textarea>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button [disabled]="!checkoutForm.valid" class="btn btn-success pe-5 ps-5 mt-2">
+                Finish order
+            </button>
+        </div>
+    </form>

@@ -1,14 +1,32 @@
-i {
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 3rem;
+    color: #d3d3d3;
+}
+
+.full {
+    color: gold;
+}
+
+.half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: gold;
+}
+
+.fontSize {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.btn {
     font-size: 1.5rem;
-    padding-right: 0.1rem;
-    color: #b0c4de;
+    font-weight: 600;
 }
-.filled {
-    color: #1e90ff;
-}
-.low {
-    color: #deb0b0;
-}
-.filled.low {
-    color: #ff1e1e;
+
+.link:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }

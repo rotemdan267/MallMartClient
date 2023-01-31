@@ -1,0 +1,46 @@
+<table class="table align-middle border m-0 fs-6">
+    <thead class="table-light">
+        <tr class="text-center">
+            <th>Username</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Payment Details</th>
+            <th>Address</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody class="text-center">
+        <tr *ngFor="let customer of customers">
+            <td>
+                <p class="link" (click)="goToCustomerDetails(customer.customerId)">{{customer.user.username}}</p>
+            </td>
+            <td>
+                <p>{{customer.user.firstName}} {{customer.user.lastName}}</p>
+            </td>
+            <td>
+                <p>{{customer.user.email}}</p>
+            </td>
+            <td>
+                <p>{{customer.user.phone}}</p>
+            </td>
+            <td>
+                <p>{{customer.paymentMethod | paymentMethod}} - {{customer.paymentDetails}}</p>
+            </td>
+            <td>
+                <p>{{customer.address.street}} {{customer.address.streetNo}}, {{customer.address.city}}</p>
+            </td>
+            <td>
+                <button class="btn btn-info" (click)="goToCustomerDetails(customer.customerId)">
+                    Go to customer's details
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br><br><br>
+<div class="d-flex justify-content-center">
+
+    <button class="btn btn-danger" (click)="logout()">Logout</button>
+</div>

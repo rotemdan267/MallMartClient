@@ -1,0 +1,17 @@
+<div class="d-flex align-items-stretch">
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item border-bottom-0"></li>
+        <li class="list-group-item border-bottom-0 fs-6">
+            Categories:
+        </li>
+        <li class="list-group-item list-group-item-action border-bottom-0 fs-6" [class.chosen]="isChooseAll"
+            (click)="chooseAll()">
+            <span class="ms-4">All</span>
+        </li>
+        <li class="list-group-item list-group-item-action border-bottom-0 fs-6" [class.chosen]="c.isChosen"
+            *ngFor="let c of categories; let i = index" (click)="choose(i)">
+            <span class="ms-4">{{c.category.name}}</span>
+        </li>
+    </ul>
+</div>

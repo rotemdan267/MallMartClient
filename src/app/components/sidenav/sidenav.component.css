@@ -1,0 +1,55 @@
+.list-group-item-action {
+    cursor: pointer;
+}
+
+.list-group-item-action:hover {
+    background-color: dodgerblue;
+    color: white;
+    text-decoration: underline;
+}
+
+input {
+    cursor: pointer;
+}
+
+li {
+    background-color: dodgerblue;
+    color: white;
+}
+
+ul {
+    /* position: absolute; */
+    /* height: 100%; */
+}
+
+.chosen {
+    font-weight: bold;
+}
+
+/* .row {
+    margin-left: 0px;
+    margin-right: 0px;
+} */
+
+
+/* .list-group-item {
+    background: linear-gradient(0deg, white, white) no-repeat right bottom / 0 var(--bg-h);
+    transition: background-size 350ms;
+    --bg-h: 100%;
+}
+
+.list-group-item:where(:hover, :focus-visible) {
+    background-size: 100% var(--bg-h);
+    background-position-x: left;
+}
+
+.underline {
+    padding-bottom: 2px;
+    --bg-h: 2px;
+}
+
+.list-group-item {
+    text-decoration: none;
+    color: inherit;
+    line-height: 1;
+} */

@@ -1,0 +1,102 @@
+<div class="row">
+    <div class="col-1">
+        <button class="btn btn-outline-primary back ms-5" (click)="back()" placement="right" ngbTooltip="Back to Store">
+            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor"
+                class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+            </svg>
+        </button>
+    </div>
+    <div class="col-11">
+        <br><br><br>
+        <div class="row fs-6">
+            <div class="d-flex justify-content-between">
+
+
+                <h1 class="ps-4 p-2 m-0 flex-grow-1 you-have" [class.round-h1]="cart.orderLines.length === 0">
+                    You have {{cart.orderLines.length}} items in your cart
+                </h1>
+
+                <button class="btn btn-primary pe-5 ps-5 clear" [class.round-btn]="cart.orderLines.length === 0"
+                    (click)="clearCart()">Clear Cart</button>
+
+            </div>
+            <div class="col-12">
+                <table class="table align-middle border m-0" [hidden]="cart.orderLines.length === 0">
+                    <thead class="table-light">
+                        <tr class="text-center">
+                            <th>&nbsp;</th>
+                            <th>Name</th>
+                            <th style="width: 6rem;">Unit price</th>
+                            <th style="width: 8rem;">Quantity</th>
+                            <th>Price</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="text-center">
+
+                        <tr *ngFor="let line of cart.orderLines">
+                            <td>
+                                <img class="m-3 link" routerLink="/products/{{line.product.id}}"
+                                    src={{line.product.imageLink}} alt={{line.product.name}}>
+                            </td>
+                            <td>
+                                <p class="link" routerLink="/products/{{line.product.id}}">{{line.product.name}}</p>
+                            </td>
+                            <td style="width: 6rem;">{{line.product.unitPrice | currency:'USD':'$':'1.0-2'}}</td>
+                            <td style="width: 8rem;">
+                                <div class="col">
+                                    <div class="form-group d-flex justify-content-between">
+                                        <div class="form-group d-flex align-items-center me-2">
+                                            <label for="counter"></label>
+                                        </div>
+                                        <button [disabled]="line.quantity === 1" class="btn btn-danger minus"
+                                            (click)="onQuantityChange(-1, line)">-</button>
+                                        <input class="form-control quantity" type="text" name="counter" id="counter"
+                                            [value]="line.quantity" #quantityInput disabled>
+                                        <button class="btn btn-success plus"
+                                            (click)="onQuantityChange(+1, line)">+</button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{line.quantity * line.product.unitPrice | currency:'USD':'$':'1.0-2'}}</td>
+                            <td class="align-top">
+                                <!-- <button class="btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor"
+                                class="bi bi-x" viewBox="0 0 16 16">
+                                <path
+                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </button> -->
+
+                                <button type="button" (click)="removeFromCart(line)" class="btn-close m-2"
+                                    aria-label="Close"></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between align-items-center border subtotal">
+
+
+                    <h1 class="ps-4 p-2 m-0 flex-grow-1 subtotal" [hidden]="cart.orderLines.length === 0">
+                        Subtotal:
+                    </h1>
+                    <h1 class="pe-4 ps-5 m-0 subtotal" [hidden]="cart.orderLines.length === 0">
+                        {{cart.totalPrice | currency:'USD':'$':'1.0-2'}}
+                    </h1>
+
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button [disabled]="cart.orderLines.length === 0" class="btn btn-success pe-5 ps-5 mt-2"
+                        (click)="checkout()">
+                        Proceed to checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br><br><br>

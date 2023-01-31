@@ -1,0 +1,52 @@
+<table class="table align-middle border m-0 fs-6">
+    <thead class="table-light">
+        <tr class="text-center">
+            <th>Ordered at:</th>
+            <th>Scheduled to arrive at:</th>
+            <th>Arrived?</th>
+            <th>Arrived at:</th>
+            <th>Price</th>
+            <th>Comments</th>
+        </tr>
+    </thead>
+
+    <tbody class="text-center">
+
+        <tr *ngFor="let order of orders">
+            <td>
+                <p class="link">{{order.dateOrdered | date:'dd/MM/yyyy, H:mm'}}</p>
+            </td>
+            <td>
+                <p>{{order.dueTimeFirst | date:'dd/MM/yyyy, H:mm'}} - {{order.dueTimeLast | date:'dd/MM/yyyy, H:mm'}}</p>
+            </td>
+            <td>
+                <span *ngIf="order.arrivalTime then ifBlock else elseBlock"></span>
+
+                <ng-template #ifBlock>
+                    <span>
+                        ✔️
+                    </span>
+                </ng-template>
+
+                <ng-template #elseBlock>
+                    <span>
+                        ❌
+                    </span>
+                </ng-template>
+            </td>
+            <td>
+                <p>{{order.arrivalTime | date:'dd/MM/yyyy, H:mm'}}</p>
+            </td>
+            <td>
+                <p>{{order.totalPrice  | currency:'USD':'$':'1.0-2'}}</p>
+            </td>
+            <td>
+                <p>{{order.comment}}</p>
+            </td>
+            <!-- <td style="width: 6rem;"></td>
+            <td style="width: 8rem;">
+               
+            </td> -->
+        </tr>
+    </tbody>
+</table>

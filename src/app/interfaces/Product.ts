@@ -4,10 +4,10 @@ export interface Product {
     id: number;
     name: string;
     category: Category;
-    price: number;
+    unitPrice: number;
     unitsInStock: number;
-    desc: string;
-    image: string;
+    description: string;
+    imageLink: string;
     rating: number;
     numOfRaters: number;
 }

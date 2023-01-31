@@ -1,0 +1,162 @@
+<button class="btn btn-outline-primary back ms-5" (click)="back()" placement="bottom" ngbTooltip="Back to Homepage">
+    <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor"
+        class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+    </svg>
+</button>
+
+
+<div class="row fs-6">
+    <div class="col-2"></div>
+    <div class="col">
+        <div class="mb-4 row">
+            <div class="col row">
+                <p class="col title">Username:</p>
+                <p class="col">{{customer.user.username}}</p>
+            </div>
+            <div class="col row">
+                <p class="col title">First Name:</p>
+                <p class="col">{{customer.user.firstName}}</p>
+            </div>
+            <div class="col row">
+                <p class="col title">Last Name:</p>
+                <p class="col">{{customer.user.lastName}}</p>
+            </div>
+        </div>
+        <div class="mb-5 row">
+            <div class="col row">
+                <p class="col title">Email:</p>
+                <p class="col">{{customer.user.email}}</p>
+            </div>
+            <div class="col row">
+                <p class="col title">Phone:</p>
+                <p class="col">{{customer.user.phone}}</p>
+            </div>
+            <div class="col row"></div>
+        </div>
+
+        <div class="mb-4 row">
+            <div class="col row">
+                <p class="col title">Address:</p>
+                <p class="col">{{customer.address.street}} {{customer.address.streetNo}}, {{customer.address.city}}</p>
+            </div>
+            <div class="col row">
+                <p class="col title"> Apartment number:</p>
+                <p class="col">{{customer.address.apartmentNo}}</p>
+            </div>
+            <div class="col row">
+                <p class="col title">Region:</p>
+                <p class="col">{{customer.address.region.name}}</p>
+            </div>
+        </div>
+        <div class="mb-5 row">
+            <div class="col row">
+                <p class="col title">Entrance:</p>
+                <p class="col">{{customer.address.entrance}}</p>
+            </div>
+            <div class="col row">
+                <p class="col title">Postal:</p>
+                <p class="col">{{customer.address.postal}}</p>
+            </div>
+            <div class="col row"></div>
+        </div>
+
+        <div class="mb-5 row">
+            <div class="col-4 row">
+                <p class="col title">Payment Method:</p>
+                <p class="col">{{customer.paymentMethod | paymentMethod}}</p>
+            </div>
+            <div class="col-8 row">
+                <p class="col-4 title">Payment Details:</p>
+                <p class="col">{{customer.paymentDetails}}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<table class="table align-middle border m-0 fs-6">
+    <thead class="table-light">
+        <tr class="text-center">
+            <th>Ordered at:</th>
+            <th>Scheduled to arrive at:</th>
+            <th>Arrived?</th>
+            <th>Arrived at:</th>
+            <th>Employee</th>
+            <th>Price</th>
+            <th>Paid</th>
+            <th>Done?</th>
+            <th>Comments</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody class="text-center">
+
+        <tr *ngFor="let order of customer.orders">
+            <td>
+                <p class="link" (click)="goToOrderDetails(order.orderId)">{{order.dateOrdered | date:'dd/MM/yyyy, H:mm'}}</p>
+            </td>
+            <td>
+                <p>{{order.dueTimeFirst | date:'dd/MM/yyyy, H:mm'}} - {{order.dueTimeLast | date:'dd/MM/yyyy, H:mm'}}
+                </p>
+            </td>
+            <td>
+                <span *ngIf="order.arrivalTime then ifBlock else elseBlock"></span>
+
+                <ng-template #ifBlock>
+                    <span>
+                        ✔️
+                    </span>
+                </ng-template>
+
+                <ng-template #elseBlock>
+                    <span>
+                        ❌
+                    </span>
+                </ng-template>
+            </td>
+            <td>
+                <p>{{order.arrivalTime | date:'dd/MM/yyyy, H:mm'}}</p>
+            </td>
+            <td>
+                <p>{{order.employee?.user?.firstName}} {{order.employee?.user?.lastName}}</p>
+            </td>
+            <td>
+                <p>{{order.totalPrice | currency:'USD':'$':'1.0-2'}}</p>
+            </td>
+            <td>
+                <p>{{order.pricePaid | currency:'USD':'$':'1.0-2'}}</p>
+            </td>
+            <td>
+                <span *ngIf="order.isOrderDone then ifBlock else elseBlock"></span>
+
+                <ng-template #ifBlock>
+                    <span>
+                        ✔️
+                    </span>
+                </ng-template>
+
+                <ng-template #elseBlock>
+                    <span>
+                        ❌
+                    </span>
+                </ng-template>
+            </td>
+            <td>
+                <p>{{order.comment}}</p>
+            </td>
+            <td>
+                <button class="btn btn-info" (click)="goToOrderDetails(order.orderId)">Go to order's
+                    details</button>
+            </td>
+            <td>
+                <button class="btn btn-danger" (click)="deleteOrder(order.orderId)">Delete Order</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br><br><br>

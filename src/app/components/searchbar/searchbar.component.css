@@ -1,0 +1,8 @@
+.form-control {
+    height: min-content;
+    border-radius: 15px;
+}
+
+.btn-primary{
+    border-radius: 50px;
+}

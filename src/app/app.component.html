@@ -1,3 +1,31 @@
-<div class="container">
-  <app-product-card></app-product-card>
+<div class="container-grid">
+      <app-header class="header"></app-header>
+
+      <br><br>
+      <br><br><br>
+      <!-- <div class="content d-flex align-items-stretch"> -->
+      <div class="row">
+
+        <div class="col-2">
+
+          <div class="sidebar">
+            <app-sidenav></app-sidenav>
+          </div>
+        </div>
+        <div class="col-10 scrollit">
+          <br>
+          <div class="body">
+
+            <router-outlet></router-outlet>
+          </div>
+          <!-- </div> -->
+          <!-- <div class="empty"></div> -->
+
+        </div>
+      </div>
+      <footer class="footer">
+        <app-footer></app-footer>
+      </footer>
+
+
 </div>
