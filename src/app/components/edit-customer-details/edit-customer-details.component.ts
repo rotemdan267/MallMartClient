@@ -9,32 +9,93 @@ import { DataService } from 'src/app/services/data.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
-  selector: 'app-customer-details',
-  templateUrl: './customer-details.component.html',
-  styleUrls: ['./customer-details.component.css']
+  selector: 'app-edit-customer-details',
+  templateUrl: './edit-customer-details.component.html',
+  styleUrls: ['./edit-customer-details.component.css']
 })
-export class CustomerDetailsComponent implements OnInit {
+export class EditCustomerDetailsComponent implements OnInit {
 
   postalValid: Boolean = true;
   regions: Region[] = [];
+  regionNames: string[] = [];
   customer: Customer = {} as Customer;
   address: Address = {} as Address;
   paymentMethods: string[] = [PaymentMethod.Paypal, PaymentMethod.Visa, PaymentMethod.Mastercard, PaymentMethod.Bitcoin];
 
+  editMode: Boolean = false;
+  buttonText: string = '';
+
+  form = {
+    region: {} as Region,
+    city: '',
+    street: '',
+    streetNo: 0,
+    entrance: '',
+    apartmentNumber: 0,
+    postal: 0,
+    paymentMethod: '',
+    paymentDetails: ''
+  };
+
   constructor(private addressesService: AddressesService, private dataService: DataService,
     private usersService: UsersService, private router: Router) {
 
-    this.addressesService.getRegions().subscribe(res => this.regions = res);
-    this.dataService.customer.subscribe(c => this.customer = c);
+    this.addressesService.getRegions().subscribe(res => {
+      this.regions = res;
+
+      for (const iterator of this.regions) {
+        this.regionNames.push(iterator.name);
+      }
+    });
+
+    this.dataService.customer.subscribe(c => {
+      this.customer = c;
+      this.address.addressId = this.customer.addressId;
+
+      let paymentMethod = '';
+      switch (this.customer.paymentMethod) {
+        case 0:
+          paymentMethod = "Paypal";
+          break;
+
+        case 1:
+          paymentMethod = "Visa";
+          break;
+
+        case 2:
+          paymentMethod = "Mastercard";
+          break;
+
+        case 3:
+          paymentMethod = "Bitcoin";
+          break;
+      }
+
+      this.form = {
+        region: this.customer.address.region,
+        city: this.customer.address.city,
+        street: this.customer.address.street,
+        streetNo: this.customer.address.streetNo,
+        entrance: this.customer.address.entrance,
+        apartmentNumber: this.customer.address.apartmentNo,
+        postal: this.customer.address.postal,
+        paymentMethod: paymentMethod,
+        paymentDetails: this.customer.paymentDetails
+      };
+    });
   }
 
   ngOnInit(): void {
   }
 
+  back() {
+    this.router.navigate(['customer-page']);
+  }
+
   validateForm(form: any): Boolean {
     let formIsValid;
 
-    if (form.postal == "") {
+    if (form.postal == "" || form.postal == null) {
       this.postalValid = true;
       return true;
     }
@@ -53,16 +114,25 @@ export class CustomerDetailsComponent implements OnInit {
     return formIsValid;
   }
 
-  register(form: any) {
+  save(form: any) {
+
+    console.log(form);
 
     if (!this.validateForm(form)) {
       return;
     }
 
-    this.address.region = form.region;
-    this.address.region.employees = [];
+    for (const iterator of this.regions) {
+      if (iterator.name == form.region) {
+        this.address.region = iterator;
+        this.address.regionId = iterator.id;
+        break;
+      }
+    }
+
     this.address.city = form.city;
     this.address.street = form.street;
+
     this.address.streetNo = Number(form.streetNo);
     if (form.entrance != "") {
       this.address.entrance = form.entrance;
@@ -74,10 +144,11 @@ export class CustomerDetailsComponent implements OnInit {
       this.address.postal = Number(form.postal);
     }
 
-    this.addressesService.postAddress(this.address).subscribe(
+    this.addressesService.putAddress(this.address.addressId, this.address).subscribe(
       result => {
-        this.customer.address = result;
-        this.customer.addressId = result.addressId;
+        console.log("put address result", result);
+
+        this.customer.address = this.address;
 
         switch (form.paymentMethod) {
           case "Paypal":
@@ -99,8 +170,10 @@ export class CustomerDetailsComponent implements OnInit {
 
         this.customer.paymentDetails = form.paymentDetails;
 
-        this.usersService.putCustomer(this.customer.customerId, this.customer).subscribe(
-          result => {            
+        this.customer.orders = [];
+
+        this.usersService.patchCustomer(this.customer.customerId, this.customer).subscribe(
+          result => {
             this.dataService.updateCustomer(this.customer);
             this.router.navigate(['products']);
           },
@@ -112,9 +185,5 @@ export class CustomerDetailsComponent implements OnInit {
       error => {
         alert(error.error);
       });
-
-
-
-
   }
 }

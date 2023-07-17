@@ -30,13 +30,13 @@ export class AddressesService {
   }
 
   // POST (create)
-  postAddress(product: Address): Observable<any> {
-    return this._client.post(`${this.SERVER}/addresses`, product);
+  postAddress(address: Address): Observable<any> {
+    return this._client.post(`${this.SERVER}/addresses`, address);
   }
 
   // PUT (update)
-  putAddress(id: number, product: Address): Observable<any> {
-    return this._client.put(`${this.SERVER}/addresses/${id}`, product);
+  putAddress(id: number, address: Address): Observable<any> {
+    return this._client.put(`${this.SERVER}/addresses/${id}`, address);
   }
 
   // DELETE (delete)

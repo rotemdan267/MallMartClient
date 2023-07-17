@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { PaymentMethod } from 'src/app/enums/PaymentMethod';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'src/app/interfaces/Address';
 import { Customer } from 'src/app/interfaces/Customer';
 import { User } from 'src/app/interfaces/User';
@@ -24,15 +23,32 @@ export class RegisterPageComponent implements OnInit {
   address: Address = {} as Address;
   userImage: UserImage = {} as UserImage;
   passwordConfirmed: Boolean = true;
+  buttonText: string = '';
 
   usernameValid: Boolean = true;
   usernameAvailable: Boolean = true;
+  passwordValid: Boolean = true;
   firstNameValid: Boolean = true;
   lastNameValid: Boolean = true;
 
-  constructor(private router: Router, private usersService: UsersService,
+  form = {
+    username: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: ''
+  };
+
+  placeholder = '';
+  editMode: Boolean = false;
+  originalUsername: string = '';
+
+  tooltipMessage: string = "Back to Homepage";
+
+  constructor(private router: Router, private route: ActivatedRoute, private usersService: UsersService,
     private userImagesService: UserImagesService, private addressesService: AddressesService,
     private dataService: DataService) {
+
     this.userImagesService.getUserImage(13).subscribe(res => {
       this.userImage = res;
     });
@@ -40,13 +56,43 @@ export class RegisterPageComponent implements OnInit {
     this.usersService.getUsers().subscribe(res => this.users = res);
 
     this.addressesService.getAddress(9).subscribe(res => this.address = res);
+
+    if (this.route.routeConfig?.path == 'register') {
+      this.buttonText = 'Register';
+    }
+    if (this.route.routeConfig?.path == 'edit') {
+
+      this.editMode = true;
+      this.buttonText = 'Save Changes';
+      this.placeholder = 'Type only if you want to change your password';
+      this.tooltipMessage = 'Back';
+
+      this.dataService.customer.subscribe(c => {
+        this.customer = c;
+        this.originalUsername = c.user.username;
+        this.form = {
+          username: this.customer.user.username,
+          firstName: this.customer.user.firstName,
+          lastName: this.customer.user.lastName,
+          email: this.customer.user.email,
+          phone: this.customer.user.phone
+        };
+      });
+
+    }
   }
 
   ngOnInit(): void {
   }
 
   back() {
-    this.router.navigate(['']);
+
+    if (this.editMode) {
+      this.router.navigate(['customer-page']);
+    }
+    else {
+      this.router.navigate(['']);
+    }
   }
 
   validateForm(form: any): Boolean {
@@ -59,13 +105,32 @@ export class RegisterPageComponent implements OnInit {
     }
     else {
       this.usernameValid = true;
-      this.usernameAvailable = true;
-      for (const user of this.users) {
-        if (user.username == form.username) {
-          this.usernameAvailable = false;
-          formIsValid = false;
-          break;
+      if (this.editMode && form.username == this.originalUsername)
+        this.usernameAvailable = true;
+
+      else {
+        this.usernameAvailable = true;
+        for (const user of this.users) {
+          if (user.username == form.username) {
+            this.usernameAvailable = false;
+            formIsValid = false;
+            break;
+          }
         }
+      }
+    }
+
+    if (this.editMode && form.password.length == 0)
+      this.passwordValid = true;
+
+    else {
+
+      if (form.password.length < 6) {
+        this.passwordValid = false;
+        formIsValid = false;
+      }
+      else {
+        this.passwordValid = true;
       }
     }
 
@@ -97,11 +162,43 @@ export class RegisterPageComponent implements OnInit {
     return formIsValid;
   }
 
-  register(form: any) {
+  submit(form: any) {
 
     if (!this.validateForm(form)) {
       return;
     }
+
+    if (this.editMode)
+      this.edit(form);
+    else
+      this.register(form);
+  }
+
+  edit(form: any) {
+
+    this.user.id = this.customer.user.id;
+    this.user.username = form.username;
+    this.user.hashedPassword = form.password;
+    this.user.firstName = form.firstName;
+    this.user.lastName = form.lastName;
+    this.user.email = form.email;
+    this.user.phone = form.phone;
+    this.user.imageId = this.userImage.id;
+    this.user.image = this.userImage;
+    this.user.authorization = "Customer";
+
+    this.usersService.putUser(this.customer.user.id, this.user).subscribe(
+      res => {
+        this.router.navigate(['customer-page']);
+      },
+      err => {
+        console.log(err.error);
+
+        alert(err.error);
+      });
+  }
+
+  register(form: any) {
 
     this.user.username = form.username;
     this.user.hashedPassword = form.password;
@@ -141,8 +238,5 @@ export class RegisterPageComponent implements OnInit {
       error => {
         alert(error.error);
       });
-
-
-
   }
 }

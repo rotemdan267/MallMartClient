@@ -1,7 +1,6 @@
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Product } from 'src/app/interfaces/Product';
 import { DataService } from 'src/app/services/data.service';
-import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrderLine } from 'src/app/interfaces/OrderLine';
 import { Order } from 'src/app/interfaces/Order';
 
@@ -15,13 +14,16 @@ export class HomepageComponent implements OnInit, OnChanges {
   products: Product[] = [];
   productsForCarousel: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   cart: Order = {} as Order;
+  isLoggedIn: boolean = false;
 
   constructor(private dataService: DataService) {
     this.dataService.allProducts.subscribe(p => {
       this.products = p;
-      // this.occupyProductsForCarousel();
     });
     this.dataService.cart.subscribe(c => this.cart = c);
+    this.dataService.isLoggedIn.subscribe(res => {
+      this.isLoggedIn = res.isLoggedIn;
+    });
   }
 
   ngOnInit(): void { }

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/interfaces/Category';
-import { Order } from 'src/app/interfaces/Order';
 import { OrderLine } from 'src/app/interfaces/OrderLine';
 import { Product } from 'src/app/interfaces/Product';
 import { DataService } from 'src/app/services/data.service';

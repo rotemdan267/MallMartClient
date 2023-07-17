@@ -12,24 +12,6 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class CartComponent implements OnInit {
 
-  // customer: any = {};
-  // employee: any = {};
-  // lines: OrderLine[] = [];
-  // cart: Order = {
-  //   orderId: 0,
-  //   customer: this.customer,
-  //   dateOrdered: new Date(),
-  //   dueTimeFirst: new Date(),
-  //   dueTimeLast: new Date(),
-  //   arrivalTime: new Date(),
-  //   employee: this.employee,
-  //   totalPrice: 0,
-  //   pricePaid: 0,
-  //   isPaid: false,
-  //   isOrderDone: false,
-  //   comment: '',
-  //   orderLines: []
-  // };
 
   customer: Customer = {} as Customer;
   cart: Order = {} as Order;

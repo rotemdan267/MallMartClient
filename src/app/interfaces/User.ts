@@ -8,6 +8,7 @@ export interface User {
     phone: string;
     username: string;
     hashedPassword: string;
+    imageId: number;
     image: UserImage;
     authorization: string;
 }

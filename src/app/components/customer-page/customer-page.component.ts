@@ -20,9 +20,17 @@ export class CustomerPageComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
-  goToOrders(){
+
+  goToOrders() {
     this.router.navigate(['orders']);
+  }
+  
+  goToEdit() {
+    this.router.navigate(['edit']);
+  }
+
+  goToEditDetails() {
+    this.router.navigate(['edit-customer-details']);
   }
 
   logout() {
@@ -30,7 +38,7 @@ export class CustomerPageComponent implements OnInit {
     cart.orderLines = [];
     this.dataService.updateCart(cart);
     this.dataService.logout();
-    
+
     this.router.navigate(['']);
   }
 

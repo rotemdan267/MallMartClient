@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Product } from '../interfaces/Product';
 import { ProductsService } from './products.service';
 import { Order } from '../interfaces/Order';

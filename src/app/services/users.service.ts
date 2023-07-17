@@ -67,6 +67,12 @@ export class UsersService {
     return this._client.put(`${this.SERVER}/customers/${id}`, customer);
   }
 
+  // PATCH (partial update)
+
+  patchCustomer(id: number, customer: Customer): Observable<any> {
+    return this._client.patch(`${this.SERVER}/customers/${id}`, customer);
+  }
+
   // DELETE (delete)
   deleteUser(id: number): Observable<any> {
     return this._client.delete(`${this.SERVER}/users/${id}`)

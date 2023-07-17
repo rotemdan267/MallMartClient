@@ -1,4 +1,3 @@
-import { PaymentMethod } from "../enums/PaymentMethod";
 import { Address } from "./Address";
 import { Order } from "./Order";
 import { User } from "./User";

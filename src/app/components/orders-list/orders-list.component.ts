@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Customer } from 'src/app/interfaces/Customer';
 import { Order } from 'src/app/interfaces/Order';
 import { DataService } from 'src/app/services/data.service';
@@ -14,7 +15,7 @@ export class OrdersListComponent implements OnInit {
   orders: Order[] = [];
   customer: Customer = {} as Customer;
 
-  constructor(private dataService: DataService, private ordersService: OrdersService) {
+  constructor(private dataService: DataService, private ordersService: OrdersService, private router: Router) {
     this.dataService.customer.subscribe(c => {
       this.customer = c;
 
@@ -28,6 +29,10 @@ export class OrdersListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  back() {
+    this.router.navigate(['customer-page']);
   }
 
 }

@@ -2,6 +2,7 @@ import { Region } from "./Region";
 
 export interface Address {
     addressId: number;
+    regionId: number;
     region: Region;
     city: string;
     street: string;

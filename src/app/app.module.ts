@@ -32,23 +32,26 @@ import { CustomerDetailsForAdminComponent } from './components/customer-details-
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { EditCustomerDetailsComponent } from './components/edit-customer-details/edit-customer-details.component';
 
 
 const appRoutes: Routes = [
   { path: '', component: HomepageComponent },
+  { path: 'admin-homepage', component: AdminHomepageComponent },
+  { path: 'cart', component: CartComponent },
+  { path: 'checkout', component: CheckoutComponent },
+  { path: 'contact', component: ContactUsComponent },
+  { path: 'customer-details', component: CustomerDetailsComponent },
+  { path: 'customer-page', component: CustomerPageComponent },
+  { path: 'customers/:id', component: CustomerDetailsForAdminComponent },
+  { path: 'edit', component: RegisterPageComponent },
+  { path: 'edit-customer-details', component: EditCustomerDetailsComponent },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'orders', component: OrdersListComponent },
+  { path: 'orders/:id', component: OrderDetailsComponent },
   { path: 'products', component: ProductsListComponent },
   { path: 'products/:id', component: ProductPageComponent },
-  { path: 'cart', component: CartComponent },
   { path: 'register', component: RegisterPageComponent },
-  { path: 'customer-details', component: CustomerDetailsComponent },
-  { path: 'checkout', component: CheckoutComponent },
-  { path: 'customer-page', component: CustomerPageComponent },
-  { path: 'orders', component: OrdersListComponent },
-  { path: 'admin-homepage', component: AdminHomepageComponent },
-  { path: 'customers/:id', component: CustomerDetailsForAdminComponent },
-  { path: 'orders/:id', component: OrderDetailsComponent },
-  { path: 'login', component: LoginPageComponent },
-  { path: 'contact', component: ContactUsComponent },
   { path: '**', pathMatch: 'full', component: PageNotFoundComponent }
 ]
 
@@ -75,7 +78,8 @@ const appRoutes: Routes = [
     CustomerDetailsForAdminComponent,
     OrderDetailsComponent,
     PageNotFoundComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    EditCustomerDetailsComponent
   ],
   imports: [
     BrowserModule,
