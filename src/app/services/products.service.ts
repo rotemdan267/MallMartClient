@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs'
 import { ServerAddressService } from '../services/server-address.service'
 import { Product } from '../interfaces/Product'
@@ -24,6 +24,14 @@ export class ProductsService {
 
   getProduct(id: number): Observable<any> {
     return this._client.get<Observable<any>>(`${this.SERVER}/products/${id}`);
+  }
+
+  getProductsFiltered(filterBy: string): Observable<any> {
+      const headers = new HttpHeaders({
+        'filterBy': filterBy
+      });
+      const requestOptions = { headers: headers };
+      return this._client.get<Observable<any>>(`${this.SERVER}/products/filtered`, requestOptions);
   }
 
   // POST (create)

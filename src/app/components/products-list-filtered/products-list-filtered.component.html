@@ -1,0 +1,69 @@
+<div class="row">
+
+    <div class="col-2">
+        <button class="btn btn-outline-primary back ms-5" (click)="back()" placement="bottom"
+            ngbTooltip="Back to Homepage">
+            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor"
+                class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+            </svg>
+        </button>
+    </div>
+
+    <div class="col-10">
+        <br><br><br>
+
+        <h2>Products:</h2>
+        <div class="table-responsive">
+
+            <table class="table align-middle border m-0 fs-6">
+                <thead class="table-light">
+                    <tr class="text-center">
+                        <th>&nbsp;</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>In stock</th>
+                        <th>Rating</th>
+                        <th>Numbers of raters</th>
+                        <th>Price</th>
+                        <th>Description</th>
+
+                    </tr>
+                </thead>
+
+                <tbody class="text-center">
+                    <tr *ngFor="let product of productsFiltered">
+                        <td>
+                            <img class="img-fluid" src={{product.imageLink}} alt={{product.name}}>
+                        </td>
+                        <td>
+                            <p>{{product.name}}</p>
+                        </td>
+                        <td>
+                            <p>{{product.category.name}}</p>
+                        </td>
+                        <td>
+                            <p>{{product.unitsInStock}}</p>
+                        </td>
+                        <td>
+                            <p>{{product.rating}}</p>
+                        </td>
+                        <td>
+                            <p>{{product.numOfRaters}}</p>
+                        </td>
+                        <td>
+                            <p>{{product.unitPrice}}</p>
+                        </td>
+                        <td>
+                            <p>{{product.description}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+        <br><br><br>
+    </div>
+</div>

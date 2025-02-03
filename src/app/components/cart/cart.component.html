@@ -1,4 +1,13 @@
 <div class="row">
+    <div class="col-2"></div>
+    <ngb-alert class="text-center col" [dismissible]="false" *ngIf="this.customer.orders.length % 3 == 2" type="info">
+        <strong class="fs-6"> Congratulations! You deserve 10% off for this order!</strong>
+    </ngb-alert>
+    <div class="col-2"></div>
+</div>
+
+
+<div class="row">
     <div class="col-1">
         <button class="btn btn-outline-primary back ms-5" (click)="back()" placement="right" ngbTooltip="Back to Store">
             <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor"
@@ -75,6 +84,10 @@
 
                     <h1 class="ps-4 p-2 m-0 flex-grow-1 subtotal" [hidden]="cart.orderLines.length === 0">
                         Subtotal:
+                    </h1>
+                    <h1 class="pe-4 ps-5 m-0 subtotal text-decoration-line-through" *ngIf="this.customer.orders.length % 3 == 2"
+                        [hidden]="cart.orderLines.length === 0">
+                        {{cart.totalPrice / 9 * 10 | currency:'USD':'$':'1.0-2'}}
                     </h1>
                     <h1 class="pe-4 ps-5 m-0 subtotal" [hidden]="cart.orderLines.length === 0">
                         {{cart.totalPrice | currency:'USD':'$':'1.0-2'}}

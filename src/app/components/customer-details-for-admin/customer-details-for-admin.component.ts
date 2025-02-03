@@ -39,6 +39,6 @@ export class CustomerDetailsForAdminComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['admin-homepage']);
+    this.router.navigate(['customers-list']);
   }
 }

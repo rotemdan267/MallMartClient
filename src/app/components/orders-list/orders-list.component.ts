@@ -18,12 +18,7 @@ export class OrdersListComponent implements OnInit {
   constructor(private dataService: DataService, private ordersService: OrdersService, private router: Router) {
     this.dataService.customer.subscribe(c => {
       this.customer = c;
-
-      // if a new order was ordered by the user - the list of orders needs to be updated
-      this.ordersService.getOrdersByCustomerId(this.customer.customerId).subscribe(res => {
-        this.customer.orders = res;
-        this.orders = res;
-      });
+      this.orders = c.orders;
     });
 
   }

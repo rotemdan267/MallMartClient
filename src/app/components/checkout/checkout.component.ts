@@ -60,6 +60,10 @@ export class CheckoutComponent implements OnInit {
         this.cart.orderLines = [];
         this.dataService.updateCart(this.cart);
 
+        this.ordersService.getOrdersByCustomerId(this.customer.customerId).subscribe(res => {
+          this.customer.orders = res;
+        });
+
         this.router.navigate(['products'], { queryParams: { 'orderSucceeded': true } });
       },
       err => {

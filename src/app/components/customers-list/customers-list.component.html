@@ -1,0 +1,62 @@
+<div class="row">
+
+    <div class="col-2">
+        <button class="btn btn-outline-primary back ms-5" (click)="back()" placement="bottom"
+            ngbTooltip="Back to Homepage">
+            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor"
+                class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+            </svg>
+        </button>
+    </div>
+
+    <div class="col-10">
+        <br><br><br>
+
+        <h2>Customers:</h2>
+        <table class="table align-middle border m-0 fs-6">
+            <thead class="table-light">
+                <tr class="text-center">
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Payment Details</th>
+                    <th>Address</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody class="text-center">
+                <tr *ngFor="let customer of customers">
+                    <td>
+                        <p class="link" (click)="goToCustomerDetails(customer.customerId)">{{customer.user.username}}
+                        </p>
+                    </td>
+                    <td>
+                        <p>{{customer.user.firstName}} {{customer.user.lastName}}</p>
+                    </td>
+                    <td>
+                        <p>{{customer.user.email}}</p>
+                    </td>
+                    <td>
+                        <p>{{customer.user.phone}}</p>
+                    </td>
+                    <td>
+                        <p>{{customer.paymentMethod | paymentMethod}} - {{customer.paymentDetails}}</p>
+                    </td>
+                    <td>
+                        <p>{{customer.address.street}} {{customer.address.streetNo}}, {{customer.address.city}}</p>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" (click)="goToCustomerDetails(customer.customerId)">
+                            Go to customer's details
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br><br><br>
+    </div>
+</div>

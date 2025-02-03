@@ -33,6 +33,8 @@ import { OrderDetailsComponent } from './components/order-details/order-details.
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { EditCustomerDetailsComponent } from './components/edit-customer-details/edit-customer-details.component';
+import { CustomersListComponent } from './components/customers-list/customers-list.component';
+import { ProductsListFilteredComponent } from './components/products-list-filtered/products-list-filtered.component';
 
 
 const appRoutes: Routes = [
@@ -42,6 +44,7 @@ const appRoutes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'contact', component: ContactUsComponent },
   { path: 'customer-details', component: CustomerDetailsComponent },
+  { path: 'customers-list', component: CustomersListComponent },
   { path: 'customer-page', component: CustomerPageComponent },
   { path: 'customers/:id', component: CustomerDetailsForAdminComponent },
   { path: 'edit', component: RegisterPageComponent },
@@ -51,6 +54,7 @@ const appRoutes: Routes = [
   { path: 'orders/:id', component: OrderDetailsComponent },
   { path: 'products', component: ProductsListComponent },
   { path: 'products/:id', component: ProductPageComponent },
+  { path: 'products-list/:filterBy', component: ProductsListFilteredComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: '**', pathMatch: 'full', component: PageNotFoundComponent }
 ]
@@ -79,7 +83,9 @@ const appRoutes: Routes = [
     OrderDetailsComponent,
     PageNotFoundComponent,
     ContactUsComponent,
-    EditCustomerDetailsComponent
+    EditCustomerDetailsComponent,
+    CustomersListComponent,
+    ProductsListFilteredComponent
   ],
   imports: [
     BrowserModule,

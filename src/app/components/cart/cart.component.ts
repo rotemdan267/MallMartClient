@@ -26,9 +26,14 @@ export class CartComponent implements OnInit {
   }
 
   setTotalPrice() {
+    
     let price = 0;
     for (const line of this.cart.orderLines) {
       price += (line.unitPrice * line.quantity);
+    }
+
+    if (this.customer.orders.length % 3 == 2) {
+      price = price * 0.9;
     }
     this.cart.totalPrice = price;
   }

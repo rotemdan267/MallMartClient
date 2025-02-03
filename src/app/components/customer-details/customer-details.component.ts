@@ -112,9 +112,5 @@ export class CustomerDetailsComponent implements OnInit {
       error => {
         alert(error.error);
       });
-
-
-
-
   }
 }
